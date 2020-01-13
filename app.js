@@ -19,11 +19,11 @@ var movieSchema = new mongoose.Schema({
 
 var Movie = mongoose.model("Movie", movieSchema)
 
-Movie.create({
-	title: "Test Movie 1",
-	image: "https://cdn.pixabay.com/photo/2016/09/14/08/18/film-1668918__340.jpg",
-	body: "this is a movie"
-})
+// Movie.create({
+// 	title: "Test Movie 1",
+// 	image: "https://cdn.pixabay.com/photo/2016/09/14/08/18/film-1668918__340.jpg",
+// 	body: "this is a movie"
+// })
 
 // ROUTES
 
@@ -31,7 +31,7 @@ app.get("/", function(req, res){
 	res.redirect("/movies")
 })
 
-// INDEX PAGE
+// INDEX ROUTE
 app.get("/movies", function(req, res){
 	Movie.find({}, function(err, movies){
 		if(err){
@@ -41,5 +41,22 @@ app.get("/movies", function(req, res){
 		}
 	})
 })
+
+// NEW ROUTE
+app.get("/movies/new", function(req, res){
+	res.render("new")
+})
+
+// CREATE ROUTE
+app.post("/movies", function(req, res){
+	Movie.create(req.body.movie, function(err, newMovie){
+		if(err){
+			res.render("new")
+		} else {
+			res.redirect("/movies")
+		}
+	})
+})
+
 
 app.listen(3000, console.log("Movie App has started"))
