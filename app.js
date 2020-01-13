@@ -13,11 +13,17 @@ app.use(bodyParser.urlencoded({extended: true}))
 var movieSchema = new mongoose.Schema({
 	title: String,
 	image: String,
-	body: String
+	body: String,
+	created: {type: Date, default: Date.now}
 })
 
 var Movie = mongoose.model("Movie", movieSchema)
 
+Movie.create({
+	title: "Test Movie 1",
+	image: "https://cdn.pixabay.com/photo/2016/09/14/08/18/film-1668918__340.jpg",
+	body: "this is a movie"
+})
 
 // ROUTES
 
