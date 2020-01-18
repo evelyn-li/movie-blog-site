@@ -1,0 +1,21 @@
+<%- include("../partials/header") %>
+
+<div class="ui main text container segment">
+	<div class="ui huge header">
+		Add New Comment to <%= movie.title %>
+	</div>
+	<form class="ui form" action="/movies/<%= movie._id %>/comments" method="POST">
+		<div class="field">
+			<label>Author</label>
+			<input type="text" name="comment[author]" placeholder="What's your name?">
+		</div>
+		<div class="field">
+			<label>Comment</label>
+			<textarea name="comment[text]"></textarea>
+		</div>
+		<input class="ui blue basic button" type="submit">
+	</form>
+</div>
+
+
+<%- include("../partials/footer") %>

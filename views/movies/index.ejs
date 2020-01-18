@@ -1,0 +1,33 @@
+<%- include("../partials/header") %>
+
+<div id="indexheader" class="ui huge header">
+	All Movie Posts
+</div>
+
+<div class="ui four column stackable grid container">
+	<% movies.forEach(function(movie){ %>
+		<div class="column">
+			<div class="ui card">
+				<div class="fluid image">
+					<img src="<%= movie.image %>" >
+				</div>
+				<div class="content">
+					<div class="header">
+						<%= movie.title %>
+					</div>
+					<div class="meta">
+						<span><%= movie.created.toDateString() %></span>
+					</div>
+					<div class="description">
+						<%= movie.body.substring(0, 100) %>...
+					</div>
+				</div>
+				<div class="extra content">
+					<a href="/movies/<%= movie._id%>">Read More</a>
+				</div>
+			</div>  
+		</div>
+	<% }) %> 
+</div>
+
+<%- include("../partials/footer") %>

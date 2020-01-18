@@ -1,0 +1,25 @@
+<%- include("../partials/header") %>
+
+<div class="ui main text container segment">
+	<div class="ui huge header">
+		New Movie Post
+	</div>
+	<form class="ui form" action="/movies" method="POST">
+		<div class="field">
+			<label>Movie Title</label>
+			<input type="text" name="movie[title]" placeholder="What's the name of your movie?">
+		</div>
+		<div class="field">
+			<label>Movie Image</label>
+			<input type="text" name="movie[image]" placeholder="Paste an image url of your movie">
+		</div>
+		<div class="field">
+			<label>What is the movie about? What are your thoughts/opinions on it?</label>
+			<textarea name="movie[body]"></textarea>
+		</div>
+		<input class="ui blue basic button" type="submit">
+	</form>
+</div>
+
+
+<%- include("../partials/footer") %>

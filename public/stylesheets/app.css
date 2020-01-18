@@ -5,3 +5,27 @@ i.icon {
 .container.main {
 	margin-top: 7.0em;
 }
+
+#delete {
+	display: inline;
+}
+
+.card {
+	width: auto;
+	height: 350px;
+}
+
+.ui.main.text.container.segment {
+	margin-top: 50px;
+}
+
+.fluid.image {
+	height: 175px;
+	overflow: hidden;
+}
+
+#indexheader {
+	text-align: center;
+	margin-top: 40px;
+	margin-bottom: 30px;
+}
