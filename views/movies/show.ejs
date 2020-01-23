@@ -3,6 +3,14 @@
 <div class="ui main text container segment">
 	<div class="ui huge header">
 		<%= movie.title %>
+		<div style="display: inline">
+			<a class="ui orange basic button" href="/movies/<%= movie._id %>/edit">Edit</a>
+			<form id="delete" action="/movies/<%= movie._id %>?_method=DELETE" method="POST">
+				<button class="ui red basic button">
+					Delete
+				</button>
+			</form>
+		</div>
 	</div>
 	<div class="ui top attached">
 		<div class="item">
@@ -15,20 +23,23 @@
 					<%= movie.body %>
 				</p>
 			</div>
-			<a class="ui orange basic button" href="/movies/<%= movie._id %>/edit">Edit</a>
-			<form id="delete" action="/movies/<%= movie._id %>?_method=DELETE" method="POST">
-				<button class="ui red basic button">
-					Delete
-				</button>
-			</form>
-			<p>
+			<br>
+			<div class="ui comments">
+				<h3 class="ui dividing header">
+					Comments
+				</h3>
 				<a class="ui green basic button" href="/movies/<%= movie._id %>/comments/new">New Comment</a>
-			</p>
-			<% movie.comments.forEach(function(comment){ %>
-				<p>
-					<strong><%= comment.author %></strong> - <%= comment.text %>
-				</p>
-			<% }) %>
+				<% movie.comments.forEach(function(comment){ %>
+					<div class="comment">
+						<div class="content">
+							<strong class="author"><%= comment.author %></strong>
+							<div class="text">
+								<%= comment.text %>
+							</div>
+						</div>
+					</div>
+				<% }) %>
+			</div>
 		</div>
 	</div>
 </div>

@@ -18,3 +18,22 @@
 			</div>
 		</div>
 		
+		<% if(messages.info){ %>
+			<div class="ui positive message">
+				<i class="close icon"></i>
+				<div class="header">
+					<%= messages.info %>
+				</div>
+			</div>
+		<% } %>
+		
+		<% if(messages.error){ %>
+			<div class="ui negative message">
+				<i class="close icon"></i>
+				<div class="header">
+					<%= messages.error %>
+				</div>
+			</div>
+		<% } %>
+		
+		

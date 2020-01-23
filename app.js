@@ -6,7 +6,10 @@ var express = require("express"),
 	mongoose = require("mongoose"),
 	Movie = require("./models/movie"),
 	Comment = require("./models/comment"),
-	seedDB = require("./seeds")
+	seedDB = require("./seeds"),
+	cookieParser = require("cookie-parser"),
+	flash = require("express-flash"),
+	session = require("express-session")
 
 
 // APP CONFIG
@@ -17,7 +20,13 @@ app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(expressSanitizer())
 app.use(methodOverride("_method"))
-
+app.use(session({
+	secret: 'good movie',
+	saveUninitialized: false,
+	resave: false
+}))
+app.use(cookieParser())
+app.use(flash())
 
 // ROUTES
 
@@ -29,7 +38,7 @@ app.get("/", function(req, res){
 app.get("/movies", function(req, res){
 	Movie.find({}, function(err, movies){
 		if(err){
-			console.log("ERROR")
+			console.log(err)
 		} else {
 			res.render("movies/index", {movies: movies})
 		}
@@ -46,8 +55,10 @@ app.post("/movies", function(req, res){
 	req.body.movie.body = req.sanitize(req.body.movie.body)
 	Movie.create(req.body.movie, function(err, newMovie){
 		if(err){
+			req.flash('error', 'Something went wrong!')
 			res.render("movies/new")
 		} else {
+			req.flash('info', 'Created new blog!')
 			res.redirect("/movies")
 		}
 	})
@@ -57,6 +68,7 @@ app.post("/movies", function(req, res){
 app.get("/movies/:id", function(req, res){
 	Movie.findById(req.params.id).populate("comments").exec(function(err, foundMovie){
 		if(err){
+			req.flash('error', 'Blog not found')
 			res.redirect("/movies")
 		} else {
 			console.log(foundMovie)
@@ -83,6 +95,7 @@ app.put("/movies/:id", function(req, res){
 		if(err){
 			res.redirect("/movies")
 		} else {
+			req.flash('info', 'Edited blog!')
 			res.redirect("/movies/" + req.params.id)
 		}
 	})
@@ -92,8 +105,10 @@ app.put("/movies/:id", function(req, res){
 app.delete("/movies/:id", function(req, res){
 	Movie.findByIdAndRemove(req.params.id, function(err){
 		if(err){
+			req.flash('error', 'Something went wrong!')
 			res.redirect("/movies")
 		} else {
+			req.flash('info', 'Deleted blog!')
 			res.redirect("/movies")
 		}
 	})
@@ -137,7 +152,6 @@ app.post("/movies/:id/comments", function(req, res){
 		}
 	})
 })
-
 
 app.listen(3000, function(){
 	console.log("Movie App has started")
