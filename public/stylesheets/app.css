@@ -31,5 +31,12 @@ i.icon {
 	margin-bottom: 30px;
 }
 
+.message {
+	text-align: center;
+}
+
+.ui.message {
+	margin: auto 400px;
+}
 
 

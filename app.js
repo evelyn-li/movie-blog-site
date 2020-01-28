@@ -31,6 +31,7 @@ app.use(flash())
 // ROUTES
 
 app.get("/", function(req, res){
+	// req.flash('info', 'Welcome')
 	res.redirect("/movies")
 })
 
@@ -38,7 +39,7 @@ app.get("/", function(req, res){
 app.get("/movies", function(req, res){
 	Movie.find({}, function(err, movies){
 		if(err){
-			console.log(err)
+			req.flash('error', 'Something went wrong!')
 		} else {
 			res.render("movies/index", {movies: movies})
 		}
@@ -81,6 +82,7 @@ app.get("/movies/:id", function(req, res){
 app.get("/movies/:id/edit", function(req, res){
 	Movie.findById(req.params.id, function(err, foundMovie){
 		if(err){
+			req.flash('error', 'Something went wrong!')
 			res.redirect("/movies")
 		} else {
 			res.render("movies/edit", {movie: foundMovie})
@@ -108,7 +110,7 @@ app.delete("/movies/:id", function(req, res){
 			req.flash('error', 'Something went wrong!')
 			res.redirect("/movies")
 		} else {
-			req.flash('info', 'Deleted blog!')
+			req.flash('info', 'Deleted ' + req.params.movie)
 			res.redirect("/movies")
 		}
 	})
@@ -122,7 +124,7 @@ app.delete("/movies/:id", function(req, res){
 app.get("/movies/:id/comments/new", function(req, res){
 	Movie.findById(req.params.id, function(err, movie){
 		if(err){
-			console.log(err)
+			req.flash('error', 'Something went wrong!')
 		} else {
 			res.render("comments/new", {movie: movie})
 		}
@@ -146,6 +148,7 @@ app.post("/movies/:id/comments", function(req, res){
 					movie.comments.push(comment)
 					movie.save()
 					//redirect to movie show page
+					req.flash('info', 'Created new comment!')
 					res.redirect("/movies/" + movie._id)
 				}
 			})
