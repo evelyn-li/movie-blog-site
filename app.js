@@ -156,6 +156,6 @@ app.post("/movies/:id/comments", function(req, res){
 	})
 })
 
-app.listen(3000, function(){
+app.listen(process.env.PORT || 3000, function(){
 	console.log("Movie App has started")
 })
