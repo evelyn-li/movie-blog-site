@@ -14,7 +14,7 @@ var express = require("express"),
 
 // APP CONFIG
 // seedDB()
-mongoose.connect("mongodb+srv://dbEvelyn:DGT7PxG9v0lvlytA@cluster0-9wj0x.mongodb.net/final-project?retryWrites=true&w=majority")
+mongoose.connect(`mongodb+srv://dbEvelyn:${process.env.MONGO_PASSWORD}@cluster0-9wj0x.mongodb.net/final-project?retryWrites=true&w=majority`)
 app.set("view engine", "ejs")
 app.use(express.static("public"))
 app.use(bodyParser.urlencoded({extended: true}))
